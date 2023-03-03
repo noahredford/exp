@@ -13,10 +13,21 @@ app.listen(PORT, () => {
   console.log(`Now on PORT ${PORT}`)
 });
 
+//Create a function that creates a new note, and pushes it to the array in db/json
+function newNote(body, notesList) {
+  const note = body;
+  notesList.push(note);
+  fs.writeFileSync(
+      path.join(__dirname, './db/db.json'),
+      JSON.stringify({notes: notesList}, null, 2)
+  );
+  return note;
+}
+
+
+
 app.get('/', (req, res) => {
   console.log('Test!')
   res.send('Hi')
 })
 
-
-//Is this all I need to get everything going as far as the server.js file goes?
