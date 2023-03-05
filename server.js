@@ -19,10 +19,13 @@ function newNote(body, notesList) {
   notesList.push(note);
   fs.writeFileSync(
       path.join(__dirname, './db/db.json'),
-      JSON.stringify({notes: notesList}, null, 2)
+      JSON.stringify({notes: notesList}, 2)
   );
   return note;
 }
+
+
+app.
 
 
 
@@ -31,3 +34,19 @@ app.get('/', (req, res) => {
   res.send('Hi')
 })
 
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/index.html'));
+});
+
+app.get('/notes', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/notes.html'));
+});
+
+app.get('/api/notes', (req, res) => {
+  res.json(notes);
+});
+
+app.post('/api/notes', (req, res) => {
+  const note = newNote(req.body, notes);
+  res.json(note);
+});
